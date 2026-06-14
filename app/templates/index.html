@@ -3,43 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Home</title>
+        <title>Static Files Example</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}?v=1.0">
     </head>
     <body>
-        <h1>Welcome</h1>
-        <p>This is the home page of our Flask application.</p>
-        <a href="/about">About Us</a>
-        <a href="/contact">Contact Us</a>
-        <div>
-            <table border="1">
-                <caption>Список пользователей</caption>
-                <thead>
-                <tr>
-                    <th>Имя</th>
-                    <th>Возраст</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Алиса</td>
-                    <td>25</td>
-                </tr>
-                <tr>
-                    <td>Боб</td>
-                    <td>30</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    <div>
-        <ul>
-            <li>Element 1</li>
-            <li>Element 2</li>
-            <li>Element 3</li>
-        </ul>
-    </div>
-    <div>
-        <img src="https://www.justmedia.ru/upload/analitika/69/01/6901b90f60579138747462_600_400.jpg" alt="хомяк">
-    </div>
+        <h1>Welcome to Flask!</h1>
     </body>
 </html>
