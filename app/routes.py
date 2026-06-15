@@ -4,50 +4,40 @@ from app import app
 
 @app.route('/')
 def home():
-    return render_template("form.html")
+    return render_template("index.html")
 
-@app.route('/submit', methods=['POST', 'GET'])
-def submit():
-    if request.method == 'POST':
-        name = request.form.get('name')
-        email = request.form.get('email')
-        color = request.form.get("color")
-        profession = request.form.get("profession")
-        hobbies = request.form.getlist("hobbies")
-        level = request.form.get("level")
-        return render_template("result.html", name=name, email=email, color=color, profession=profession, hobbies=hobbies, level=level)
-    else:
-        return redirect(url_for('form'))
+# @app.route('/submit', methods=['POST', 'GET'])
+# def submit():
+#     if request.method == 'POST':
+#         name = request.form.get('name')
+#         email = request.form.get('email')
+#         color = request.form.get("color")
+#         profession = request.form.get("profession")
+#         hobbies = request.form.getlist("hobbies")
+#         level = request.form.get("level")
+#         return render_template("result.html", name=name, email=email, color=color, profession=profession, hobbies=hobbies, level=level)
+#     else:
+#         return redirect(url_for('form'))
 @app.route('/about')
 def about():
     return render_template("about.html")
 
-@app.route('/contact')
+@app.route('/contact', methods=['POST', 'GET'])
 def contact():
-    return render_template("contact.html")
+    success_message = None
 
-@app.route('/hello')
-def hello_world():
-    return 'Hello, World!'
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        message = request.form.get('message')
 
-@app.route('/info')
-def info():
-    return 'This is an informational page.'
+        print(name)
+        print(email)
+        print(message)
 
-@app.route('/reverse/<string:name>')
-def reverse(name):
-    if len(name) < 2:
-        return f'Слишком короткое имя'
-    if not name.isalpha():
-        return 'Имя должно содержать только буквы'
-    return name[::-1]
+        success_message = 'Your message was sent successfully!'
 
-@app.route('/user/<name>/<int:age>')
-def user(name, age):
-    if age < 0 or age > 100:
-        return 'Возраст должен быть больше 0, но меньше 100'
-    return f'Hello, {name}! You are {age} years old.'
-
-@app.route('/calc/<int:num1>/<int:num2>')
-def calc(num1, num2):
-    return f"The summ of {num1} and {num2} is {num1 + num2}"
+    return render_template(
+        'contact.html',
+        success_message=success_message
+    )
