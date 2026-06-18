@@ -17,7 +17,7 @@ def home():
 #         level = request.form.get("level")
 #         return render_template("result.html", name=name, email=email, color=color, profession=profession, hobbies=hobbies, level=level)
 #     else:
-#         return redirect(url_for('form'))
+#         return redirect(url_for('home'))
 @app.route('/about')
 def about():
     return render_template("about.html")
