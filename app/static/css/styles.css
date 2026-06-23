@@ -108,3 +108,7 @@ footer {
     font-weight: bold;
     text-align: center;
 }
+
+.current-time {
+    padding: 50px;
+}

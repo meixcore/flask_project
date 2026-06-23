@@ -1,26 +1,23 @@
+import datetime
+
 from flask import render_template, request, redirect, url_for
 
 from app import app
 
 @app.route('/')
 def home():
-    return render_template("index.html")
+    current_time = datetime.datetime.now()
+    return render_template("index.html", current_time=current_time)
 
-# @app.route('/submit', methods=['POST', 'GET'])
-# def submit():
-#     if request.method == 'POST':
-#         name = request.form.get('name')
-#         email = request.form.get('email')
-#         color = request.form.get("color")
-#         profession = request.form.get("profession")
-#         hobbies = request.form.getlist("hobbies")
-#         level = request.form.get("level")
-#         return render_template("result.html", name=name, email=email, color=color, profession=profession, hobbies=hobbies, level=level)
-#     else:
-#         return redirect(url_for('home'))
 @app.route('/about')
 def about():
-    return render_template("about.html")
+    team_members = [
+        {'name': 'Alice', 'role': 'Developer'},
+        {'name': 'Bob', 'role': 'Designer'},
+        {'name': 'Charlie', 'role': 'Project Manager'},
+    ]
+
+    return render_template("about.html", team_members=team_members, user_info=user_info)
 
 @app.route('/contact', methods=['POST', 'GET'])
 def contact():
@@ -35,9 +32,16 @@ def contact():
         print(email)
         print(message)
 
-        success_message = 'Your message was sent successfully!'
+        success_message = (f'{name}, your message: "{message}" was sent successfully !'
+                           f'You will receive an email at {email}')
 
-    return render_template(
-        'contact.html',
-        success_message=success_message
-    )
+    user_info = {
+        'name': 'Charlie',
+        'address': {
+            'street': '123 Main',
+            'city': 'Wonderland',
+            'zip': '12345'
+        }
+    }
+
+    return render_template('contact.html',success_message=success_message, user_info=user_info)
