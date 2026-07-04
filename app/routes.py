@@ -1,7 +1,6 @@
 import datetime
-
-from flask import render_template, request, redirect, url_for
-
+from flask import render_template, request, redirect, url_for, Flask
+from flask_sqlalchemy import SQLAlchemy
 from app import app
 
 @app.route('/')
@@ -17,7 +16,7 @@ def about():
         {'name': 'Charlie', 'role': 'Project Manager'},
     ]
 
-    return render_template("about.html", team_members=team_members, user_info=user_info)
+    return render_template("about.html", team_members=team_members)
 
 @app.route('/contact', methods=['POST', 'GET'])
 def contact():
