@@ -20,16 +20,14 @@ def register_routes(app):
 
     @app.route('/add', methods=['GET', 'POST'])
     def add_agent():
-        random_nickname = generate_nickname()
-
         if request.method == 'POST':
-            nickname = request.form['nickname']
+            nickname = request.form.get('nickname', '').strip()
             number = request.form['number']
             email = request.form['email']
             access_level = request.form['access_level']
 
             if not nickname:
-                nickname = request.form['random_nickname']
+                nickname = generate_nickname()
 
             if nickname.strip() and number.strip() and email.strip():
                 new_agent = Agent(
