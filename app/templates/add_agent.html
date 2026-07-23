@@ -16,6 +16,11 @@
 
         <div class="card shadow p-4">
             <form method="POST">
+                {% if error %}
+                <div class="alert alert-danger">
+                    {{ error }}
+                </div>
+                {% endif %}
                 <div class="mb-3">
                     <label for="nickname" class="form-label">Nickname:</label>
                     <div class="input-group">
@@ -31,18 +36,32 @@
                 </div>
                 <div class="mb-3">
                     <label for="number" class="form-label">number:</label>
-                    <input type="text" id="number" name="number" class="form-control" required>
+                    <input
+                        type="text"
+                        id="number"
+                        name="number"
+                        class="form-control"
+                        value="{{ number or '' }}"
+                        required
+                    >
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">email:</label>
-                    <input type="text" id="email" name="email" class="form-control" required>
+                    <input
+                        type="text"
+                        id="email"
+                        name="email"
+                        class="form-control"
+                        value="{{ email or '' }}"
+                        required
+                    >
                 </div>
                 <div>Access lvl:
-                    <input type="radio" name="access_level" id="access-lvl1" value="1" required>
+                    <input type="radio" name="access_level" id="access-lvl1" value="1" {% if access_level == '1' %}checked{% endif %}>
                     <label for="access-lvl1">1</label>
-                    <input type="radio" name="access_level" id="access-lvl2" value="2">
+                    <input type="radio" name="access_level" id="access-lvl2" value="2" {% if access_level == '2' %}checked{% endif %}>
                     <label for="access-lvl2">2</label>
-                    <input type="radio" name="access_level" id="access-lvl3" value="3">
+                    <input type="radio" name="access_level" id="access-lvl3" value="3" {% if access_level == '3' %}checked{% endif %}>
                     <label for="access-lvl3">3</label>
                 </div>
 
@@ -57,6 +76,7 @@
                 Back to Agents List
             </a>
         </div>
+
     </div>
 
 </body>

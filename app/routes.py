@@ -23,22 +23,32 @@ def agent_detail(id):
 def add_agent():
     if request.method == 'POST':
         nickname = request.form.get('nickname', '').strip()
-        number = request.form['number']
-        email = request.form['email']
-        access_level = request.form['access_level']
+        number = request.form.get('number', '').strip()
+        email = request.form.get('email', '').strip()
+        access_level = request.form.get('access_level', '').strip()
 
         if not nickname:
             nickname = generate_nickname()
 
-        if nickname.strip() and number.strip() and email.strip():
-            new_agent = Agent(
-                nickname=nickname,
+        if not number or not email or not access_level:
+            return render_template(
+                'add_agent.html',
+                random_nickname=nickname,
+                error='Заполните все обязательные поля.',
                 number=number,
                 email=email,
                 access_level=access_level
             )
-            db.session.add(new_agent)
-            db.session.commit()
+
+        new_agent = Agent(
+            nickname=nickname,
+            number=number,
+            email=email,
+            access_level=access_level
+        )
+
+        db.session.add(new_agent)
+        db.session.commit()
         return redirect(url_for('main.agents_list'))
     return render_template('add_agent.html', random_nickname=generate_nickname())
 
